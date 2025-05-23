@@ -42,6 +42,21 @@
 - Для проверки корректности настройки, разорвите один из кабелей между одним из маршрутизаторов и Switch0 и запустите ping между PC0 и Server0.
 - На проверку отправьте получившуюся схему в формате pkt и скриншот, где виден процесс настройки маршрутизатора.
 
+  ### *Ответ*
+
+<details>
+
+![Снимок01](https://github.com/KaifasKainChaos/sflt-homeworks/blob/dd2696cf4e8766a31de7dfcc282c9aed1eca927b/disaster1.jpg)
+
+![Снимок02](https://github.com/KaifasKainChaos/sflt-homeworks/blob/dd2696cf4e8766a31de7dfcc282c9aed1eca927b/disaster2.jpg)
+
+![Снимок03](https://github.com/KaifasKainChaos/sflt-homeworks/blob/dd2696cf4e8766a31de7dfcc282c9aed1eca927b/disaster3.jpg)
+
+Файл PKT [hsrp_advanced_kmoisiadis.pkt](https://github.com/KaifasKainChaos/sflt-homeworks/blob/d750f26ebcd609a53f2f3fc6e4bf924e518e7896/hsrp_advanced_kmoisiadis.pkt)
+
+</details>
+
+
 ------
 
 
@@ -52,6 +67,29 @@
 - Настройте Keepalived так, чтобы он запускал данный скрипт каждые 3 секунды и переносил виртуальный IP на другой сервер, если bash-скрипт завершался с кодом, отличным от нуля (то есть порт веб-сервера был недоступен или отсутствовал index.html). Используйте для этого секцию vrrp_script
 - На проверку отправьте получившейся bash-скрипт и конфигурационный файл keepalived, а также скриншот с демонстрацией переезда плавающего ip на другой сервер в случае недоступности порта или файла index.html
 
+### *Ответ*
+
+<details>
+
+```
+#!/bin/bash
+if [[ $(netstat -tuln | grep LISTEN | grep :80) ]] && [[ -f /var/www/html/index.nginx-debian.html ]]; then
+        exit 0
+else
+        sudo systemctl stop keepalived
+fi
+```
+
+Файл конфига https://github.com/KaifasKainChaos/sflt-homeworks/blob/9c907d9f2e1548fea39c6513fd9af6160b078b85/keepalived.conf
+![image](https://github.com/KaifasKainChaos/sflt-homeworks/blob/8106ec2ec9b53bfc6b00d9c9268aeefe17787f0b/disaster2-1.jpg)
+
+![image](https://github.com/KaifasKainChaos/sflt-homeworks/blob/b5d18486a357acef8c7aaf5d237bfa19ede718d5/disaster2-2.jpg)
+
+![image](https://github.com/KaifasKainChaos/sflt-homeworks/blob/b5d18486a357acef8c7aaf5d237bfa19ede718d5/disaster2-3.jpg)
+
+![image](https://github.com/KaifasKainChaos/sflt-homeworks/blob/b5d18486a357acef8c7aaf5d237bfa19ede718d5/disaster2-4.jpg)
+
+</details>
 
 ------
 
